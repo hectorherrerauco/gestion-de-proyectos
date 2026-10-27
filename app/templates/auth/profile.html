@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% from "_macros.html" import field %}
+{% block title %}Mi perfil{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div class="avatar xl">{{ current_user.initials }}</div>
+  <div>
+    <h1>{{ current_user.name }}</h1>
+    <p class="muted">{{ current_user.email }} · <span class="badge role-{{ current_user.role.name }}">{{ current_user.role.label }}</span></p>
+  </div>
+</div>
+<div class="grid-2">
+  <section class="card glass">
+    <h2>Datos personales</h2>
+    <form method="post" novalidate id="profile-form">
+      {{ profile_form.hidden_tag() }}
+      {{ field(profile_form.name) }}
+      {{ profile_form.submit(class_="btn btn-primary", id="profile-submit") }}
+    </form>
+  </section>
+  <section class="card glass">
+    <h2>Cambiar contraseña</h2>
+    <form method="post" novalidate id="password-form">
+      {{ pwd_form.hidden_tag() }}
+      {{ field(pwd_form.current, autocomplete="current-password") }}
+      {{ field(pwd_form.password, autocomplete="new-password") }}
+      {{ field(pwd_form.confirm, autocomplete="new-password") }}
+      {{ pwd_form.submit(class_="btn btn-primary", id="password-submit") }}
+    </form>
+  </section>
+</div>
+{% endblock %}

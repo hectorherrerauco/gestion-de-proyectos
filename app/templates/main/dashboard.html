@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <p class="eyebrow">{{ current_user.role.label }}</p>
+    <h1>Hola, {{ current_user.name.split()[0] }} 👋</h1>
+    <p class="muted">{{ current_user.role.description }}</p>
+  </div>
+</div>
+
+{% if current_user.is_admin %}
+<div class="stats">
+  <div class="stat glass"><span class="stat-label">Usuarios totales</span><span class="stat-value">{{ stats.total }}</span></div>
+  <div class="stat glass"><span class="stat-label">Activos</span><span class="stat-value">{{ stats.active }}</span></div>
+  {% for label, n in stats.by_role.items() %}
+  <div class="stat glass"><span class="stat-label">{{ label }}</span><span class="stat-value">{{ n }}</span></div>
+  {% endfor %}
+</div>
+<div class="grid-3">
+  <a href="{{ url_for('admin.users') }}" class="tile glass" id="tile-users"><span class="tile-icon">👥</span><h3>Usuarios y roles</h3><p class="muted">Gestiona miembros, roles y accesos.</p></a>
+  <div class="tile glass soon"><span class="tile-icon">📁</span><h3>Proyectos</h3><p class="muted">Crea proyectos y asigna presupuestos.</p><span class="pill">Próximo hito</span></div>
+  <div class="tile glass soon"><span class="tile-icon">📊</span><h3>Métricas</h3><p class="muted">Avance, horas y costos del portafolio.</p><span class="pill">Próximo hito</span></div>
+</div>
+{% elif current_user.has_role('developer') %}
+<div class="grid-3">
+  <div class="tile glass soon"><span class="tile-icon">✅</span><h3>Mis tareas</h3><p class="muted">Tareas asignadas y su estado.</p><span class="pill">Próximo hito</span></div>
+  <div class="tile glass soon"><span class="tile-icon">⏱️</span><h3>Reporte de horas</h3><p class="muted">Registra horas y avances.</p><span class="pill">Próximo hito</span></div>
+  <a href="{{ url_for('auth.profile') }}" class="tile glass"><span class="tile-icon">👤</span><h3>Mi perfil</h3><p class="muted">Actualiza tus datos y contraseña.</p></a>
+</div>
+{% else %}
+<div class="grid-3">
+  <div class="tile glass soon"><span class="tile-icon">📈</span><h3>Estado del proyecto</h3><p class="muted">Avance general y hitos.</p><span class="pill">Próximo hito</span></div>
+  <div class="tile glass soon"><span class="tile-icon">📄</span><h3>Informes</h3><p class="muted">Reportes y métricas (solo lectura).</p><span class="pill">Próximo hito</span></div>
+  <a href="{{ url_for('auth.profile') }}" class="tile glass"><span class="tile-icon">👤</span><h3>Mi perfil</h3><p class="muted">Actualiza tus datos y contraseña.</p></a>
+</div>
+{% endif %}
+{% endblock %}

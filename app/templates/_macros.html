@@ -1,0 +1,18 @@
+{% macro field(f, type=None, autocomplete=None) %}
+<div class="field {{ 'has-error' if f.errors }}">
+  <label for="{{ f.id }}">{{ f.label.text }}</label>
+  {{ f(class_="input", placeholder=f.label.text, autocomplete=autocomplete) }}
+  {% for e in f.errors %}<small class="error">{{ e }}</small>{% endfor %}
+</div>
+{% endmacro %}
+
+{% macro auth_shell(title, subtitle) %}
+<section class="auth-card glass">
+  <div class="auth-head">
+    <span class="brand-logo lg">◆</span>
+    <h1>{{ title }}</h1>
+    <p class="muted">{{ subtitle }}</p>
+  </div>
+  {{ caller() }}
+</section>
+{% endmacro %}

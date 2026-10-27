@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Acceso denegado{% endblock %}
+{% block main_class %}auth-wrap{% endblock %}
+{% block content %}
+<section class="auth-card glass center">
+  <div class="err-code">403</div>
+  <h1>Acceso denegado</h1>
+  <p class="muted">Tu rol no tiene permisos para ver esta página.</p>
+  <a href="{{ url_for('main.index') }}" class="btn btn-primary">Ir al inicio</a>
+</section>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% from "_macros.html" import field, auth_shell %}
+{% block title %}Iniciar sesión{% endblock %}
+{% block main_class %}auth-wrap{% endblock %}
+{% block content %}
+{% call auth_shell("Bienvenido de nuevo", "Accede a DevProject Manager") %}
+<form method="post" novalidate id="login-form">
+  {{ form.hidden_tag() }}
+  {{ field(form.email, autocomplete="email") }}
+  {{ field(form.password, autocomplete="current-password") }}
+  <div class="row-between">
+    <label class="check">{{ form.remember() }} <span>Recordarme</span></label>
+    <a href="{{ url_for('auth.forgot_password') }}" class="link" id="forgot-link">¿Olvidaste tu contraseña?</a>
+  </div>
+  {{ form.submit(class_="btn btn-primary btn-block", id="login-submit") }}
+</form>
+<p class="auth-foot">¿No tienes cuenta? <a href="{{ url_for('auth.register') }}" class="link" id="register-link">Regístrate</a></p>
+{% endcall %}
+{% endblock %}

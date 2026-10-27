@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% from "_macros.html" import field, auth_shell %}
+{% block title %}Activar cuenta{% endblock %}
+{% block main_class %}auth-wrap{% endblock %}
+{% block content %}
+{% call auth_shell("Activa tu cuenta", "Hola " ~ user.name ~ ", define tu contraseña para empezar") %}
+<p class="center" style="margin:-.6rem 0 1.4rem"><span class="badge role-{{ user.role.name }}">{{ user.role.label }}</span> <span class="muted">· {{ user.email }}</span></p>
+<form method="post" novalidate id="invite-form">
+  {{ form.hidden_tag() }}
+  {{ field(form.password, autocomplete="new-password") }}
+  {{ field(form.confirm, autocomplete="new-password") }}
+  {{ form.submit(class_="btn btn-primary btn-block", id="invite-submit") }}
+</form>
+{% endcall %}
+{% endblock %}
